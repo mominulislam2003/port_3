@@ -241,6 +241,7 @@ a {
     justify-content: center;
     align-items: center;
     text-align: center;
+    position: relative;
 }
 
 .hero-content {
@@ -341,16 +342,17 @@ a {
 }
 
 .scroll-indicator {
-    margin-top: auto;
     position: absolute;
     bottom: 85px;
-    /* Above nav bar on mobile */
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--text-dim);
     font-size: 0.7rem;
     letter-spacing: 2px;
+    z-index: 10;
 }
 
 .arrow {
@@ -365,7 +367,9 @@ a {
 
 @media (min-width: 768px) {
     .scroll-indicator {
-        bottom: 20px;
+        top: 90%;
+        bottom: auto;
+        transform: translateX(-50%);
     }
 }
 
