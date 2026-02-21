@@ -177,3 +177,34 @@ function initStars() {
     }
 }
 
+
+const form = document.getElementById("my-form");
+const status = document.getElementById("status");
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    
+    status.innerHTML = "Sending...";
+    status.style.color = "blue";
+
+    fetch(event.target.action, {
+        method: 'POST',
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            status.innerHTML = "Thanks! Your message has been sent successfully.";
+            status.style.color = "green";
+            form.reset();
+        } else {
+            status.innerHTML = "Oops! There was a problem submitting your form.";
+            status.style.color = "red";
+        }
+    }).catch(error => {
+        status.innerHTML = "Oops! Connectivity issue. Please try again.";
+        status.style.color = "red";
+    });
+});
