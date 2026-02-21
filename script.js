@@ -177,19 +177,16 @@ function initStars() {
     }
 }
 
-var form = document.getElementById("my-form");
+
+const form = document.getElementById("my-form"); // আপনার HTML ফর্মে id="my-form" থাকতে হবে
 
 async function handleSubmit(event) {
   event.preventDefault();
-  var status = document.getElementById("status");
-  var data = new FormData(event.target);
-
-  // বাটনটি ডিসেবল করে দিন যাতে বারবার ক্লিক না পড়ে
-  document.getElementById("submit-btn").disabled = true;
-  status.innerHTML = "Sending...";
+  const status = document.getElementById("status"); // মেসেজ দেখানোর জন্য একটি খালি <p id="status"></p> রাখুন
+  const data = new FormData(event.target);
 
   fetch(event.target.action, {
-    method: form.method,
+    method: 'POST',
     body: data,
     headers: {
         'Accept': 'application/json'
@@ -198,23 +195,15 @@ async function handleSubmit(event) {
     if (response.ok) {
       status.innerHTML = "Thanks! Your message has been sent successfully.";
       status.style.color = "green";
-      form.reset(); // ফর্মটি খালি করে দিবে
+      form.reset();
     } else {
-      response.json().then(data => {
-        if (Object.hasOwn(data, 'errors')) {
-          status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-        } else {
-          status.innerHTML = "Oops! There was a problem submitting your form.";
-        }
-        status.style.color = "red";
-      })
+      status.innerHTML = "Oops! There was a problem submitting your form.";
+      status.style.color = "red";
     }
-    document.getElementById("submit-btn").disabled = false;
   }).catch(error => {
     status.innerHTML = "Oops! Connectivity issue. Please try again.";
     status.style.color = "red";
-    document.getElementById("submit-btn").disabled = false;
   });
 }
 
-form.addEventListener("submit", handleSubmit)
+form.addEventListener("submit", handleSubmit);
