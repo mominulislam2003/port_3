@@ -26,6 +26,77 @@ document.addEventListener('DOMContentLoaded', () => {
         navObserver.observe(section);
     });
 
+    // --- Form Handling & Rocket Animation ---
+    const form = document.getElementById("my-form");
+    const status = document.getElementById("status");
+    const rocket = document.getElementById("rocket-container");
+    const submitBtn = document.getElementById("submit-btn");
+
+    if (form) {
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            submitBtn.innerText = "Ignition...";
+            status.innerHTML = "Sending...";
+            status.style.color = "var(--accent)";
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: new FormData(event.target),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    rocket.classList.add("launching");
+                    submitBtn.innerText = "Sent into Orbit!";
+
+                    setTimeout(() => {
+                        status.innerHTML = "Message reached the stars! (Success)";
+                        status.style.color = "var(--accent)";
+                        rocket.classList.remove("launching");
+                        submitBtn.innerText = "Send Message";
+                        form.reset();
+                    }, 2000);
+                } else {
+                    status.innerHTML = "Oops! Submission failed.";
+                    status.style.color = "red";
+                    submitBtn.innerText = "Try Again";
+                }
+            }).catch(error => {
+                status.innerHTML = "Oops! Connection issue.";
+                status.style.color = "red";
+                submitBtn.innerText = "Try Again";
+            });
+        });
+    }
+
+    // --- Mouse Tracking & Cursor Tracer ---
+    const tracer = document.getElementById('cursor-tracer');
+    let mouseX = 0, mouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2) * 0.01;
+        mouseY = (e.clientY - window.innerHeight / 2) * 0.01;
+
+        if (tracer) {
+            tracer.style.left = e.clientX + 'px';
+            tracer.style.top = e.clientY + 'px';
+        }
+
+        createParticle(e.clientX, e.clientY);
+    });
+
+    function createParticle(x, y) {
+        const particle = document.createElement('div');
+        particle.className = 'trail-particle';
+        const size = Math.random() * 4 + 'px';
+        particle.style.width = size;
+        particle.style.height = size;
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 800);
+    }
+
     // --- Canvas Starfield Background ---
     const canvas = document.getElementById('background-canvas');
     if (canvas) {
@@ -42,9 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         class Star {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
@@ -62,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x + mouseX * this.z, this.y + mouseY * this.z, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.fill();
             }
@@ -70,25 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initStars() {
             stars = [];
-            const starCount = Math.floor((width * height) / 4000);
-            for (let i = 0; i < starCount; i++) {
-                stars.push(new Star());
-            }
+            const density = window.innerWidth < 768 ? 8000 : 4000;
+            const starCount = Math.floor((width * height) / density);
+            for (let i = 0; i < starCount; i++) stars.push(new Star());
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            // Subtle gradient background
             const gradient = ctx.createLinearGradient(0, 0, 0, height);
-            gradient.addColorStop(0, '#050a18'); // Updated to new dark cosmic
+            gradient.addColorStop(0, '#050a18');
             gradient.addColorStop(1, '#000000');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, width, height);
-
-            stars.forEach(star => {
-                star.update();
-                star.draw();
-            });
+            stars.forEach(star => { star.update(); star.draw(); });
             requestAnimationFrame(animate);
         }
 
@@ -97,114 +160,59 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
     }
 
-    // --- Scroll Observer for Fade-ins ---
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
+    // --- Scroll Observer ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-
-                // Handle Progress Bars
-                if (entry.target.classList.contains('skill-category') || entry.target.querySelector('.fill')) {
-                    const bars = entry.target.querySelectorAll('.fill');
-                    bars.forEach(bar => {
-                        const targetWidth = bar.getAttribute('data-width');
-                        if (targetWidth) {
-                            bar.style.width = targetWidth;
-                        }
-                    });
-                }
+                const bars = entry.target.querySelectorAll('.fill');
+                bars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-width');
+                    if (targetWidth) bar.style.width = targetWidth;
+                });
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-    // Initialize Elements
-    const animateElements = document.querySelectorAll('.timeline-item, .skill-category, .planet-orbit, .tool-card, .info-card');
-    animateElements.forEach(el => {
+    document.querySelectorAll('.timeline-item, .skill-category, .tool-card, .info-card, .lang-card').forEach(el => {
         el.classList.add('hidden-scroll');
         observer.observe(el);
     });
 
-    // Initialize Progress Bars (Set to 0 first)
-    const progressBars = document.querySelectorAll('.fill');
-    progressBars.forEach(bar => {
-        const width = bar.style.width;
-        bar.setAttribute('data-width', width);
+    document.querySelectorAll('.fill').forEach(bar => {
+        bar.setAttribute('data-width', bar.style.width);
         bar.style.width = '0%';
     });
 
-    // --- Parallax Effect ---
-    // Only apply on larger screens or check performance
-    const heroContent = document.querySelector('.hero-content');
-    if (window.matchMedia("(min-width: 768px)").matches) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            if (heroContent) {
-                heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
-                heroContent.style.opacity = 1 - (scrolled / 600);
+    // --- Hero Parallax & Apple-style Reveal ---
+    const homeContent = document.querySelector('.hero-content');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+
+    const handleScroll = () => {
+        const scrolled = window.scrollY;
+        const viewportHeight = window.innerHeight;
+
+        if (scrolled <= viewportHeight) {
+            // Hero Parallax, Fade and Scale Down
+            if (homeContent) {
+                const progress = scrolled / (viewportHeight * 0.8);
+                const opacity = Math.max(0, 1 - progress);
+                const scale = 1 - (progress * 0.05); // Slight scale down
+                const translateY = scrolled * 0.3; // Slower parallax
+
+                homeContent.style.opacity = opacity;
+                homeContent.style.transform = `translateY(${translateY}px) scale(${scale})`;
             }
-        });
-    }
-});
 
-// CSS Injection for Animation Classes
-const styleCheck = document.createElement('style');
-styleCheck.innerHTML = `
-    .hidden-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
-    .visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-`;
-document.head.appendChild(styleCheck);
-
-// script.js এর resize ফাংশনে এটি যোগ করুন
-function initStars() {
-    stars = [];
-    // মোবাইলে স্টারের সংখ্যা কম রাখা (Performance Fix)
-    const density = window.innerWidth < 768 ? 8000 : 4000;
-    const starCount = Math.floor((width * height) / density);
-    for (let i = 0; i < starCount; i++) {
-        stars.push(new Star());
-    }
-}
-
-
-const form = document.getElementById("my-form");
-const status = document.getElementById("status");
-
-form.addEventListener("submit", async function(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    
-    status.innerHTML = "Sending...";
-    status.style.color = "blue";
-
-    fetch(event.target.action, {
-        method: 'POST',
-        body: data,
-        headers: {
-            'Accept': 'application/json'
+            // Scroll Indicator Fade
+            if (scrollIndicator) {
+                scrollIndicator.style.opacity = Math.max(0, 1 - (scrolled / 200));
+            }
         }
-    }).then(response => {
-        if (response.ok) {
-            status.innerHTML = "Thanks! Your message has been sent successfully.";
-            status.style.color = "green";
-            form.reset();
-        } else {
-            status.innerHTML = "Oops! There was a problem submitting your form.";
-            status.style.color = "red";
-        }
-    }).catch(error => {
-        status.innerHTML = "Oops! Connectivity issue. Please try again.";
-        status.style.color = "red";
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Initial call to set state
+    handleScroll();
 });
