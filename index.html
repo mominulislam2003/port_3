@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Mominul Islam | Full-Stack Web Developer Portfolio</title>
-    <meta name="title" content="Mominul Islam | Full-Stack Web Developer Portfolio">
     <meta name="description"
         content="Professional portfolio of Mominul Islam. Specialized in React, Node.js, and modern UI/UX design. View my projects and contact for collaborations.">
     <meta name="keywords"
@@ -15,9 +14,8 @@
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mominulislam.vercel.app/">
-    <meta property="og:title" content="Mominul Islam | Full-Stack Web Developer Portfolio">
-    <meta property="og:description"
-        content="Check out my latest web development projects and design case studies. Built with React and Node.js.">
+    <meta property="og:title" content="Mominul Islam | Full-Stack Web Developer">
+    <meta property="og:description" content="Check out my latest web development projects and design case studies.">
     <meta property="og:image" content="https://mominulislam.vercel.app/avatar.png">
 
     <meta property="twitter:card" content="summary_large_image">
@@ -37,31 +35,23 @@
 </head>
 
 <body>
-    <!-- Background Canvas -->
     <canvas id="background-canvas"></canvas>
 
-    <!-- Top Navigation (Desktop: Full, Mobile: Logo Only) -->
     <nav class="glass-nav top-nav">
         <div class="nav-container">
             <div class="logo">MIAD<span class="highlight-accent">.</span></div>
-            <!-- Desktop Links -->
             <ul class="nav-links desktop-only">
-                <li><a href="#home" class="nav-item">Home</a></li>
                 <li><a href="#about" class="nav-item">About</a></li>
                 <li><a href="#education" class="nav-item">Education</a></li>
                 <li><a href="#languages" class="nav-item">Languages</a></li>
+                <li><a href="#gallery" class="nav-item">Gallery</a></li>
                 <li><a href="#skills" class="nav-item">Skills</a></li>
                 <li><a href="#contact" class="nav-item">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Bottom Navigation (Mobile Only) -->
     <nav class="bottom-nav mobile-only">
-        <a href="#home" class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
         <a href="#about" class="nav-item">
             <i class="fas fa-user"></i>
             <span>About</span>
@@ -69,6 +59,10 @@
         <a href="#education" class="nav-item">
             <i class="fas fa-graduation-cap"></i>
             <span>Edu</span>
+        </a>
+        <a href="#gallery" class="nav-item">
+            <i class="fas fa-images"></i>
+            <span>Gallery</span>
         </a>
         <a href="#skills" class="nav-item">
             <i class="fas fa-code"></i>
@@ -80,11 +74,14 @@
         </a>
     </nav>
 
-    <!-- Hero Section (Home) -->
-    <header id="home" class="hero-section">
+    <header id="about" class="hero-section">
+        <div class="hero-visual">
+            <div class="orbit-circle"></div>
+            <img src="avatar.png" alt="Mominul Islam" class="profile-pic">
+        </div>
         <div class="hero-content">
             <div class="identity-wrapper">
-                <h1 class="apple-reveal">MOMINUL <span class="highlight-accent">ISLAM</span></h1>
+                <h1 class="apple-reveal"><span class="highlight-accent">MOMINUL</span> ISLAM</h1>
                 <p class="role-tag reveal-subtext">Frontend Developer & Programmer</p>
             </div>
         </div>
@@ -96,24 +93,20 @@
     </header>
 
     <main>
-        <!-- About Section (Emerges from below) -->
-        <section id="about" class="section">
-            <div class="container reveal-on-scroll">
+        <section class="section">
+            <div class="container hidden-scroll">
                 <h2 class="section-title">About Me</h2>
                 <div class="info-cards-container">
-                    <!-- About Card -->
                     <div class="glass-card info-card" style="--d: 0.2s">
                         <h3><i class="fas fa-user-astronaut"></i> About Me</h3>
                         <p>I specialize in crafting fast, responsive, and accessible websites using HTML, CSS, and
                             JavaScript. My focus is on writing clean code.</p>
                     </div>
 
-                    <!-- Interests Card -->
                     <div class="glass-card info-card" style="--d: 0.4s">
                         <h3><i class="fas fa-gamepad"></i> Personal Interests</h3>
                         <p>Outside of coding, I’m a passionate gamer. Gaming inspires my design process, teaching me
-                            about
-                            interactivity and engagement.</p>
+                            about interactivity and engagement.</p>
                         <div class="gaming-tags">
                             <span class="game-tag"><i class="fas fa-shield-alt"></i> Clash of Clans</span>
                             <span class="game-tag"><i class="fas fa-crown"></i> Clash Royale</span>
@@ -123,17 +116,17 @@
                 </div>
             </div>
         </section>
-        <!-- Educational Journey -->
+
         <section id="education" class="section">
             <div class="container">
                 <h2 class="section-title">Education & Certificate</h2>
                 <div class="timeline-container">
-                    <div class="timeline-line accent-line"></div>
+                    <div class="timeline-line"></div>
 
                     <div class="timeline-item left">
                         <div class="timeline-content glass-card">
                             <span class="date-badge">2009–2011</span>
-                            <h4>Patenga Islamia Fazil(degree) Madrasah</h4>
+                            <h4><i class="fas fa-school"></i> Patenga Islamia Fazil(degree) Madrasah</h4>
                             <p>Admitted for nursery and completed early primary education.</p>
                         </div>
                     </div>
@@ -141,7 +134,7 @@
                     <div class="timeline-item right">
                         <div class="timeline-content glass-card">
                             <span class="date-badge">2012</span>
-                            <h4>Narayanganj</h4>
+                            <h4><i class="fas fa-map-marker-alt"></i> Narayanganj</h4>
                             <p>Lived in Narayanganj for eight months during 2012 before returning to Chittagong.</p>
                         </div>
                     </div>
@@ -149,7 +142,7 @@
                     <div class="timeline-item left">
                         <div class="timeline-content glass-card">
                             <span class="date-badge">2019</span>
-                            <h4>Hefz Completion</h4>
+                            <h4><i class="fas fa-book-open"></i> Hefz Completion</h4>
                             <p>Started Hefz studies in Chittagong, later shifted to Khulna in 2018, and completed full
                                 memorization in 2019.</p>
                         </div>
@@ -158,16 +151,16 @@
                     <div class="timeline-item right">
                         <div class="timeline-content glass-card">
                             <span class="date-badge">2020–2023</span>
-                            <h4>Gilatola Ahmadia Dakhil Madrasah</h4>
-                            <p>Secondary School Certificate (Dakhil) -Admitted to class 8 in 2020. Studied through
-                                classes 9 and 10 and participated in the Dakhil examination in 2023.</p>
+                            <h4><i class="fas fa-graduation-cap"></i> Gilatola Ahmadia Dakhil Madrasah</h4>
+                            <p>Secondary School Certificate (Dakhil) - Studied through classes 9 and 10 and participated
+                                in the Dakhil examination in 2023.</p>
                         </div>
                     </div>
 
                     <div class="timeline-item left">
                         <div class="timeline-content glass-card">
                             <span class="date-badge">2023–2025</span>
-                            <h4>Khulna Nesaria Kamil Madrasah</h4>
+                            <h4><i class="fas fa-university"></i> Khulna Nesaria Kamil Madrasah</h4>
                             <p>Higher Secondary (Alim) - Admitted to class XI in 2023 and successfully appeared for the
                                 Alim examination in 2025.</p>
                         </div>
@@ -176,16 +169,16 @@
                     <div class="timeline-item right">
                         <div class="timeline-content glass-card">
                             <span class="date-badge">2025</span>
-                            <h4>Fazil (Degree) Admitted</h4>
+                            <h4><i class="fas fa-medal"></i> Fazil (Degree) Admitted</h4>
                             <p>Khulna Nesaria Kamil Madrasah. <strong class="highlight-accent">Class Roll: 01</strong>
                             </p>
                         </div>
                     </div>
 
                     <div class="timeline-item left">
-                        <div class="timeline-content glass-card current-era">
+                        <div class="timeline-content glass-card">
                             <span class="date-badge">2026 - Present</span>
-                            <h4>Fazil (Hon's)</h4>
+                            <h4><i class="fas fa-user-graduate"></i> Fazil (Honours)</h4>
                             <p>Khulna Alia Kamil Madrasah.</p>
                             <p>Specialization: <strong>Al-Hadith and Islamic Studies</strong></p>
                         </div>
@@ -194,8 +187,6 @@
             </div>
         </section>
 
-        <!-- Use existing sections for Languages, Skills, Contact... -->
-        <!-- Multilingual Proficiency -->
         <section id="languages" class="section">
             <div class="container">
                 <h2 class="section-title">Global Proficiency</h2>
@@ -268,12 +259,56 @@
             </div>
         </section>
 
-        <!-- Technical Skills -->
+        <section id="gallery" class="gallery-container">
+            <h2 class="section-title">My Gallery</h2>
+            <div class="photo-grid">
+                <div class="photo-card wide">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (5).jpg" alt="Mominul Islam - Creative Project Showcase" class="protected-img">
+                </div>
+
+                <div class="photo-card tall">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (2).jpg" alt="Mominul Islam - UI/UX Design Portfolio" class="protected-img">
+                </div>
+
+                <div class="photo-card">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (3).jpg" alt="Mominul Islam - Full-Stack Development Exhibit" class="protected-img">
+                </div>
+
+                <div class="photo-card big">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (8).jpg" alt="Mominul Islam - Web Application Display" class="protected-img">
+                </div>
+
+                <div class="photo-card">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (11).jpg" alt="Mominul Islam - Innovative Tech Solution" class="protected-img">
+                </div>
+
+                <div class="photo-card wide">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (6).jpg" alt="Mominul Islam - Modern Frontend Showcase" class="protected-img">
+                </div>
+
+                <div class="photo-card">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (7).jpg" alt="Mominul Islam - Digital Experience Showcase" class="protected-img">
+                </div>
+
+                <div class="photo-card tall">
+                    <div class="overlay"><i class="fas fa-expand view-icon"></i></div>
+                    <img src="photo (8).jpg" alt="Mominul Islam - Professional Portfolio Highlight"
+                        class="protected-img">
+                </div>
+            </div>
+        </section>
         <section id="skills" class="section">
+            <h2 class="section-title">My Skills</h2>
             <div class="container two-col-top">
                 <div class="skills-panel glass-card">
                     <h3><i class="fas fa-code"></i> Technical Arsenal</h3>
-
                     <div class="skill-category">
                         <h4><i class="fab fa-html5"></i> Frontend</h4>
                         <div class="skill-tags">
@@ -285,7 +320,6 @@
                             <span class="skill-pill">Bootstrap</span>
                         </div>
                     </div>
-
                     <div class="skill-category">
                         <h4><i class="fas fa-laptop-code"></i> Programming</h4>
                         <div class="skill-tags">
@@ -310,7 +344,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="section">
             <div class="container narrow">
                 <h2 class="section-title">Get In Touch</h2>
@@ -318,11 +351,11 @@
                     id="my-form">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="[Your_Name]" required>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="[EMAIL_ADDRESS]" required>
+                        <input type="email" id="email" name="email" placeholder="Email Address" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
@@ -338,23 +371,25 @@
                 </form>
 
                 <div class="social-links">
-                    <a href="https://www.facebook.com/mominulislam.miad" class="social-icon"><i
+                    <a href="https://www.facebook.com/mominulislam.miad" class="social-pill"><i
                             class="fab fa-facebook"></i> Facebook</a>
-                    <a href="https://github.com/mominulislam2003" class="social-icon"><i class="fab fa-github"></i>
+                    <a href="https://github.com/mominulislam2003" class="social-pill"><i class="fab fa-github"></i>
                         GitHub</a>
-                    <a href="https://wa.me/+8801678444553" class="social-icon"><i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/+8801678444553" class="social-pill"><i class="fab fa-whatsapp"></i>
                         Whatsapp</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="glass-footer">
-        <p> My First Website: <a href="https://2003-miad.netlify.app/"><b>_MIAD_</b></a></p>
+    <footer class="footer">
+        <p><b>&copy; <a href="https://www.2003-miad.vercel.app"> Mominul Islam Portfolio</a></b></p>
     </footer>
 
+    <div id="custom-cursor"></div>
+    <div id="cursor-outline"></div>
+
     <script src="script.js"></script>
-    <div id="cursor-tracer"></div>
 </body>
 
 </html>
