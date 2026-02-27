@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     rocket.classList.add("launching");
                     submitBtn.innerText = "Sent into Orbit!";
                     setTimeout(() => {
-                        status.innerText = "Message reached the stars!";
+                        status.innerText = "Message is send successfully!";
                         rocket.classList.remove("launching");
                         submitBtn.innerText = "Send Message";
                         form.reset();
@@ -238,4 +238,5 @@ document.addEventListener('contextmenu', e => {
 });
 document.addEventListener('keydown', e => {
     if (e.ctrlKey && (e.key === 's' || e.key === 'u') || e.key === 'F12') e.preventDefault();
+
 });
