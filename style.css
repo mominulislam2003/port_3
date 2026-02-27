@@ -161,9 +161,10 @@ a {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* --- Top Navigation (Desktop & Logo) --- */
-/* Mobile Navigation Fix: Ensure top nav is visible but centered on mobile */
+/* --- Top Navigation (Desktop Only) --- */
 .top-nav {
+    display: none;
+    /* Hide on mobile by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -176,33 +177,38 @@ a {
     border-right: none;
 }
 
-@media (max-width: 767px) {
-    .nav-container {
-        justify-content: center !important;
+@media (min-width: 768px) {
+    .top-nav {
+        display: block;
     }
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
-    /* Center logo on mobile if desired, or left */
     align-items: center;
     padding: 0 4%;
 }
 
-/* On mobile, justify center for logo since nav items are gone */
-@media (max-width: 767px) {
-    .nav-container {
-        justify-content: center;
-    }
-}
-
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--white);
     letter-spacing: -0.05em;
     z-index: 1001;
+}
+
+.logo .profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+    margin: 0;
 }
 
 /* Desktop Links - Hidden on Mobile */
